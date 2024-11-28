@@ -7,7 +7,7 @@ use GuzzleHttp\Exception\GuzzleException;
 
 class Client
 {
-    const BASE_URL = 'http://tt.245.35jkw.com';
+    const BASE_URL = 'http://api.internal.rczy.work';
 
     const TIMEOUT = 25.0;
 
