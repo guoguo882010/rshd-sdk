@@ -1,6 +1,6 @@
 <?php
 
-namespace RSHD\RSHDSDK;
+namespace RSHDSDK;
 
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
@@ -16,10 +16,10 @@ class SMS extends Project
      */
     public function sendESMS100($telephone, $message)
     {
-        return \RSHD\RSHDSDK\Client::postRequest('/sms/sms100', [
+        return Client::postRequest('/sms/sms100', [
             'telephone' => $telephone,
             'message'   => $message,
-        ], $this->projectName);
+        ], $this->projectConfig);
     }
 
     /**
@@ -31,11 +31,11 @@ class SMS extends Project
      */
     public function sendAliyun($telephone, $template_id, $template_param)
     {
-        return \RSHD\RSHDSDK\Client::postRequest('/sms/aliyun', [
+        return Client::postRequest('/sms/aliyun', [
             'telephone'      => $telephone,
             'template_id'    => $template_id,
             'template_param' => json_encode($template_param, JSON_UNESCAPED_UNICODE),
-        ], $this->projectName);
+        ], $this->projectConfig);
     }
 
     /**
@@ -48,10 +48,10 @@ class SMS extends Project
      */
     public function sendBaidu($telephone, $template_id, $template_param)
     {
-        return \RSHD\RSHDSDK\Client::postRequest('/sms/baidu', [
+        return Client::postRequest('/sms/baidu', [
             'telephone'      => $telephone,
             'template_id'    => $template_id,
             'template_param' => json_encode($template_param, JSON_UNESCAPED_UNICODE),
-        ], $this->projectName);
+        ], $this->projectConfig);
     }
 }

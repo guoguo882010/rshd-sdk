@@ -1,8 +1,8 @@
 {
-    "name": "rshd/rshd-sdk",
+    "name": "guoguo882010/rshd-sdk",
     "autoload": {
         "psr-4": {
-            "RSHD\\RSHDSDK\\": "src/"
+            "RSHDSDK\\": "src/"
         }
     },
     "authors": [
@@ -13,6 +13,6 @@
     ],
     "require": {
         "php": ">=7.0.0",
-        "guzzlehttp/guzzle": "^7.9"
+        "guzzlehttp/guzzle": "^6.5.8"
     }
 }

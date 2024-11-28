@@ -1,6 +1,6 @@
 <?php
 
-namespace RSHD\RSHDSDK;
+namespace RSHDSDK;
 
 use GuzzleHttp\Exception\GuzzleException;
 
@@ -13,17 +13,18 @@ class OSS extends Project
      */
     public function getSignUrl($object_path)
     {
-        return Client::postRequest('/store/ossSignUrl', ['object_path' => $object_path], $this->projectName);
+        return Client::postRequest('/store/ossSignUrl', ['object_path' => $object_path], $this->projectConfig);
     }
 
     /**
      * @param string $file_path
      * @param string $oss_path
      * @return array
+     * @throws GuzzleException
      */
     public function uploadFile($file_path, $oss_path)
     {
-        return Client::postFileRequest('/store/ossUploadFile', $file_path, $oss_path, $this->projectName);
+        return Client::postFileRequest('/store/ossUploadFile', $file_path, $oss_path, $this->projectConfig);
     }
 
     /**
@@ -34,7 +35,7 @@ class OSS extends Project
      */
     public function uploadContent($content, $oss_path)
     {
-        return Client::postRequest('/store/ossUploadContent', ['object_path' => $oss_path, 'object_content' => $content], $this->projectName);
+        return Client::postRequest('/store/ossUploadContent', ['object_path' => $oss_path, 'object_content' => $content], $this->projectConfig);
     }
 
     /**
@@ -44,7 +45,7 @@ class OSS extends Project
      */
     public function getObjectContent($oss_path)
     {
-        return Client::postRequest('/store/ossObjectContent', ['object_path' => $oss_path], $this->projectName);
+        return Client::postRequest('/store/ossObjectContent', ['object_path' => $oss_path], $this->projectConfig);
     }
 
     /**
@@ -62,6 +63,6 @@ class OSS extends Project
             'mode'        => $mode,
             'width'       => $width,
             'height'      => $height,
-        ], $this->projectName);
+        ], $this->projectConfig);
     }
 }

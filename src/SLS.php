@@ -1,6 +1,6 @@
 <?php
 
-namespace RSHD\RSHDSDK;
+namespace RSHDSDK;
 
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
@@ -17,7 +17,7 @@ class SLS extends Project
         return Client::postRequest('/log/slsPut', [
             'topic' => 'Request',
             'data'  => json_encode($data, JSON_UNESCAPED_UNICODE),
-        ], $this->projectName);
+        ], $this->projectConfig);
     }
 
     /**
@@ -36,6 +36,6 @@ class SLS extends Project
                 '_exception_line'    => $e->getLine(),
                 '_exception_trace'   => $e->getTrace(),
             ], JSON_UNESCAPED_UNICODE),
-        ], $this->projectName);
+        ], $this->projectConfig);
     }
 }

@@ -1,26 +1,26 @@
 <?php
 
-namespace RSHD\RSHDSDK;
+namespace RSHDSDK;
 
 use Exception;
 
 abstract class Project
 {
     /**
-     * @var string
+     * @var array
      */
-    protected $projectName = '';
+    protected $projectConfig = '';
 
     /**
-     * @param string $project_name
+     * @param array $project_config
      * @throws Exception
      */
-    public function __construct($project_name)
+    public function __construct($project_config)
     {
-        if (empty($project_name)) {
-            throw new Exception('必须指定项目名称');
+        if (empty($project_config)) {
+            throw new Exception('项目配置不能为空');
         }
 
-        $this->projectName = $project_name;
+        $this->projectConfig = $project_config;
     }
 }
