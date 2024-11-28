@@ -1,5 +1,6 @@
 {
     "name": "guoguo882010/rshd-sdk",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "RSHDSDK\\": "src/"
