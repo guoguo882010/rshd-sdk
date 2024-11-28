@@ -8,6 +8,20 @@ use GuzzleHttp\Exception\GuzzleException;
 class SLS extends Project
 {
     /**
+     * @param array $data 日志数据
+     * @param string $topic 日志主题
+     * @return array
+     * @throws GuzzleException
+     */
+    public function putData($data, $topic)
+    {
+        return Client::postRequest('/log/slsPut', [
+            'topic' => $topic,
+            'data'  => json_encode($data, JSON_UNESCAPED_UNICODE),
+        ], $this->projectConfig);
+    }
+
+    /**
      * @param array $data
      * @return array
      * @throws GuzzleException
