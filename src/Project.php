@@ -23,4 +23,14 @@ abstract class Project
 
         $this->projectConfig = $project_config;
     }
+
+    /**
+     * @param array $project_config
+     * @return static
+     * @throws Exception
+     */
+    public static function instance($project_config)
+    {
+        return new static($project_config);
+    }
 }
