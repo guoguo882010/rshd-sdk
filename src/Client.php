@@ -82,7 +82,7 @@ class Client
             if ($method == 'GET') {
                 $request = $client->request($method, '/index' . $url);
             } elseif ($method == 'FILE') {
-                $request = $client->request($method, '/index' . $url, $data);
+                $request = $client->request('POST', '/index' . $url, $data);
             } else {
                 $request = $client->request($method, '/index' . $url, ['form_params' => $data]);
             }
