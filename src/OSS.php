@@ -2,14 +2,14 @@
 
 namespace RSHDSDK;
 
-use GuzzleHttp\Exception\GuzzleException;
+use Exception;
 
 class OSS extends Project
 {
     /**
      * @param string $object_path
      * @return array
-     * @throws GuzzleException
+     * @throws Exception
      */
     public function getSignUrl($object_path)
     {
@@ -20,7 +20,7 @@ class OSS extends Project
      * @param string $file_path
      * @param string $oss_path
      * @return array
-     * @throws GuzzleException
+     * @throws Exception
      */
     public function uploadFile($file_path, $oss_path)
     {
@@ -31,7 +31,7 @@ class OSS extends Project
      * @param string $content
      * @param string $oss_path
      * @return array
-     * @throws GuzzleException
+     * @throws Exception
      */
     public function uploadContent($content, $oss_path)
     {
@@ -41,7 +41,7 @@ class OSS extends Project
     /**
      * @param string $oss_path
      * @return array
-     * @throws GuzzleException
+     * @throws Exception
      */
     public function getObjectContent($oss_path)
     {
@@ -54,7 +54,7 @@ class OSS extends Project
      * @param int $width
      * @param int $height
      * @return array
-     * @throws GuzzleException
+     * @throws Exception
      */
     public function getPicSignUrl($oss_path, $mode = 'fixed', $width = 200, $height = 200)
     {

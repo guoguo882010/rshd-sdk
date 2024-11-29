@@ -3,7 +3,6 @@
 namespace RSHDSDK;
 
 use Exception;
-use GuzzleHttp\Exception\GuzzleException;
 
 class SMS extends Project
 {
@@ -12,7 +11,7 @@ class SMS extends Project
      * @param $telephone
      * @param $message
      * @return array
-     * @throws Exception|GuzzleException
+     * @throws Exception
      */
     public function sendESMS100($telephone, $message)
     {
@@ -27,7 +26,7 @@ class SMS extends Project
      * @param string $template_id
      * @param array $template_param
      * @return array
-     * @throws GuzzleException
+     * @throws Exception
      */
     public function sendAliyun($telephone, $template_id, $template_param)
     {
@@ -43,7 +42,6 @@ class SMS extends Project
      * @param string $template_id
      * @param array $template_param
      * @return array
-     * @throws GuzzleException
      * @throws Exception
      */
     public function sendBaidu($telephone, $template_id, $template_param)

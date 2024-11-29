@@ -3,7 +3,6 @@
 namespace RSHDSDK;
 
 use Exception;
-use GuzzleHttp\Exception\GuzzleException;
 
 class SLS extends Project
 {
@@ -11,7 +10,7 @@ class SLS extends Project
      * @param array $data 日志数据
      * @param string $topic 日志主题
      * @return array
-     * @throws GuzzleException
+     * @throws Exception
      */
     public function putData($data, $topic)
     {
@@ -24,7 +23,7 @@ class SLS extends Project
     /**
      * @param array $data
      * @return array
-     * @throws GuzzleException
+     * @throws Exception
      */
     public function putRequest($data)
     {
@@ -37,7 +36,7 @@ class SLS extends Project
     /**
      * @param Exception $e
      * @return array
-     * @throws GuzzleException
+     * @throws Exception
      */
     public function putException(Exception $e)
     {

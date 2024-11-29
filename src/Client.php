@@ -16,7 +16,7 @@ class Client
      * @param array $data
      * @param array $project_config
      * @return array
-     * @throws GuzzleException
+     * @throws Exception
      */
     public static function postRequest($url, $data, $project_config)
     {
@@ -29,7 +29,7 @@ class Client
      * @param string $oss_path
      * @param array $project_config
      * @return array
-     * @throws GuzzleException
+     * @throws Exception
      */
     public static function postFileRequest($url, $file_path, $oss_path, $project_config)
     {
@@ -52,7 +52,7 @@ class Client
      * @param string $url
      * @param array $project_config
      * @return array
-     * @throws GuzzleException
+     * @throws Exception
      */
     public static function getRequest($url, $project_config)
     {
@@ -64,8 +64,7 @@ class Client
      * @param string $url
      * @param array $data
      * @param array $project_config
-     * @return mixed
-     * @throws GuzzleException
+     * @return array
      * @throws Exception
      */
     protected static function request($method, $url, $data, $project_config)
@@ -79,12 +78,16 @@ class Client
             ],
         ]);
 
-        if ($method == 'GET') {
-            $request = $client->request($method, '/index' . $url);
-        } elseif ($method == 'FILE') {
-            $request = $client->request($method, '/index' . $url, $data);
-        } else {
-            $request = $client->request($method, '/index' . $url, ['form_params' => $data]);
+        try {
+            if ($method == 'GET') {
+                $request = $client->request($method, '/index' . $url);
+            } elseif ($method == 'FILE') {
+                $request = $client->request($method, '/index' . $url, $data);
+            } else {
+                $request = $client->request($method, '/index' . $url, ['form_params' => $data]);
+            }
+        } catch (GuzzleException $e) {
+            throw new Exception($e->getMessage());
         }
 
         if ($request->getStatusCode() !== 200) {

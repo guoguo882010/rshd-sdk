@@ -2,7 +2,7 @@
 
 namespace RSHDSDK;
 
-use GuzzleHttp\Exception\GuzzleException;
+use Exception;
 
 class ISI extends Project
 {
@@ -10,7 +10,7 @@ class ISI extends Project
      * @param $file_url
      * @param $call_back_url
      * @return array
-     * @throws GuzzleException
+     * @throws Exception
      */
     public function getText($file_url, $call_back_url)
     {
@@ -20,7 +20,7 @@ class ISI extends Project
     /**
      * @param $task_id
      * @return array
-     * @throws GuzzleException
+     * @throws Exception
      */
     public function searchTask($task_id)
     {
