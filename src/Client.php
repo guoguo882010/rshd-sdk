@@ -60,6 +60,60 @@ class Client
     }
 
     /**
+     * 独立的 post 请求
+     * @param string $url
+     * @param array $data
+     * @return string
+     * @throws Exception
+     */
+    public function post($url, $data, $option)
+    {
+        $client = new \GuzzleHttp\Client($option);
+
+        try {
+            $request = $client->request('POST',$url, [
+                'form_params' => $data,
+            ]);
+        } catch (GuzzleException $exception) {
+            throw new Exception($exception->getMessage());
+        }
+
+        $result = $request->getBody()->getContents();
+
+        if (empty($result)) {
+            throw new Exception('服务器返回空数据');
+        }
+
+        return $result;
+    }
+
+    /**
+     * 独立的 get 请求
+     * @param string $url
+     * @param array $option
+     * @return string
+     * @throws Exception
+     */
+    public function get($url, $option)
+    {
+        $client = new \GuzzleHttp\Client($option);
+
+        try {
+            $request = $client->request('GET',$url);
+        } catch (GuzzleException $exception) {
+            throw new Exception($exception->getMessage());
+        }
+
+        $result = $request->getBody()->getContents();
+
+        if (empty($result)) {
+            throw new Exception('服务器返回空数据');
+        }
+
+        return $result;
+    }
+
+    /**
      * @param string $method
      * @param string $url
      * @param array $data
