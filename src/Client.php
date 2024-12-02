@@ -66,7 +66,7 @@ class Client
      * @return string
      * @throws Exception
      */
-    public function post($url, $data, $option)
+    public static function post($url, $data, $option)
     {
         $client = new \GuzzleHttp\Client($option);
 
@@ -78,13 +78,7 @@ class Client
             throw new Exception($exception->getMessage());
         }
 
-        $result = $request->getBody()->getContents();
-
-        if (empty($result)) {
-            throw new Exception('服务器返回空数据');
-        }
-
-        return $result;
+        return $request->getBody()->getContents();
     }
 
     /**
@@ -94,7 +88,7 @@ class Client
      * @return string
      * @throws Exception
      */
-    public function get($url, $option)
+    public static function get($url, $option)
     {
         $client = new \GuzzleHttp\Client($option);
 
@@ -104,13 +98,7 @@ class Client
             throw new Exception($exception->getMessage());
         }
 
-        $result = $request->getBody()->getContents();
-
-        if (empty($result)) {
-            throw new Exception('服务器返回空数据');
-        }
-
-        return $result;
+        return $request->getBody()->getContents();
     }
 
     /**
