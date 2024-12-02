@@ -66,8 +66,12 @@ class Client
      * @return string
      * @throws Exception
      */
-    public static function post($url, $data, $option)
+    public static function post($url, $data, $option = [])
     {
+        if (empty($url)) {
+            throw new Exception('url 不能为空');
+        }
+
         $client = new \GuzzleHttp\Client($option);
 
         try {
@@ -88,8 +92,12 @@ class Client
      * @return string
      * @throws Exception
      */
-    public static function get($url, $option)
+    public static function get($url, $option = [])
     {
+        if (empty($url)) {
+            throw new Exception('url 不能为空');
+        }
+        
         $client = new \GuzzleHttp\Client($option);
 
         try {
