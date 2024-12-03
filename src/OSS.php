@@ -65,4 +65,17 @@ class OSS extends Project
             'height'      => $height,
         ], $this->projectConfig);
     }
+
+    /**
+     * 判断文件是否存在
+     * @param string $oss_path
+     * @return array
+     * @throws Exception
+     */
+    public function objectExist($oss_path)
+    {
+        return Client::postRequest('/store/ossObjectExist', [
+            'object_path' => $oss_path,
+        ], $this->projectConfig);
+    }
 }
