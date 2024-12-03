@@ -40,12 +40,19 @@ class OSS extends Project
 
     /**
      * @param string $oss_path
+     * @param array $options
      * @return array
      * @throws Exception
      */
-    public function getObjectContent($oss_path)
+    public function getObjectContent($oss_path, $options = null)
     {
-        return Client::postRequest('/store/ossObjectContent', ['object_path' => $oss_path], $this->projectConfig);
+        $data['object_path'] = $oss_path;
+
+        if (!empty($options) && is_array($options)) {
+            $data['options'] = json_encode($options, JSON_UNESCAPED_UNICODE);
+        }
+
+        return Client::postRequest('/store/ossObjectContent', $data, $this->projectConfig);
     }
 
     /**
