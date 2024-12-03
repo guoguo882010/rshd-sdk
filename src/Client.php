@@ -150,13 +150,7 @@ class Client
             throw new Exception('服务器返回空数据');
         }
 
-        $json_arr = json_decode($result, true);
-
-        if ($json_arr['status'] !== 200) {
-            throw new Exception($json_arr['message']);
-        }
-
-        return $json_arr;
+        return json_decode($result, true);
     }
 
 }
