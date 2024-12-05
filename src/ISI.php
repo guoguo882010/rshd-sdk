@@ -14,7 +14,7 @@ class ISI extends Project
      */
     public function getText($file_url, $call_back_url)
     {
-        return Client::postRequest('/voice/isiText', ['file_url' => $file_url, 'call_back_url' => $call_back_url], $this->projectConfig);
+        return $this->client->apiPostRequest('/voice/isiText', ['file_url' => $file_url, 'call_back_url' => $call_back_url]);
     }
 
     /**
@@ -24,6 +24,6 @@ class ISI extends Project
      */
     public function searchTask($task_id)
     {
-        return Client::postRequest('/voice/isiSearch', ['task_id' => $task_id], $this->projectConfig);
+        return $this->client->apiPostRequest('/voice/isiSearch', ['task_id' => $task_id]);
     }
 }

@@ -15,10 +15,10 @@ class SMS extends Project
      */
     public function sendESMS100($telephone, $message)
     {
-        return Client::postRequest('/sms/sms100', [
+        return $this->client->apiPostRequest('/sms/sms100', [
             'telephone' => $telephone,
             'message'   => $message,
-        ], $this->projectConfig);
+        ]);
     }
 
     /**
@@ -30,11 +30,11 @@ class SMS extends Project
      */
     public function sendAliyun($telephone, $template_id, $template_param)
     {
-        return Client::postRequest('/sms/aliyun', [
+        return $this->client->apiPostRequest('/sms/aliyun', [
             'telephone'      => $telephone,
             'template_id'    => $template_id,
             'template_param' => json_encode($template_param, JSON_UNESCAPED_UNICODE),
-        ], $this->projectConfig);
+        ]);
     }
 
     /**
@@ -46,10 +46,10 @@ class SMS extends Project
      */
     public function sendBaidu($telephone, $template_id, $template_param)
     {
-        return Client::postRequest('/sms/baidu', [
+        return $this->client->apiPostRequest('/sms/baidu', [
             'telephone'      => $telephone,
             'template_id'    => $template_id,
             'template_param' => json_encode($template_param, JSON_UNESCAPED_UNICODE),
-        ], $this->projectConfig);
+        ]);
     }
 }

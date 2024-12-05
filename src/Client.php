@@ -7,34 +7,108 @@ use GuzzleHttp\Exception\GuzzleException;
 
 class Client
 {
-    const BASE_URL = 'http://api.internal.rczy.work';
+    protected $baseURL = 'http://tt.245.35jkw.com';
 
-    const TIMEOUT = 25.0;
+    protected $timeout = 25.0;
+
+    /**
+     * @var \GuzzleHttp\Client
+     */
+    protected $client;
+
+    /**
+     * @var bool
+     */
+    protected $close = false;
+
+    /**
+     * @param array $config
+     */
+    public function __construct($config)
+    {
+        $this->client = new \GuzzleHttp\Client($this->getOption($config));
+    }
+
+    /**
+     * @param array $config
+     * @return array
+     */
+    protected function getOption($config)
+    {
+        $ssl = $config['ssl'] ?? false;
+
+        if ($ssl) {
+            $option['verify'] = $this->getCACert();
+        }
+
+        $option['base_uri'] = $config['base_uri'] ?? $this->baseURL;
+        $option['timeout'] = $config['timeout'] ?? $this->timeout;
+        $option['headers'] = array_merge([
+            'rshd-project-name' => $config['rshd_project_name'] ?? '',
+            'rshd-project-key'  => $config['rshd_project_key'] ?? '',
+        ], $config['headers'] ?? []);
+
+        return $option;
+    }
+
+    protected function getCACert()
+    {
+        return './cacert.pem';
+    }
+
+    /**
+     * 服务器返回的 json 结果 转换为 数组
+     * @param string $result
+     * @return array
+     */
+    protected function resultToArray($result)
+    {
+        if ($this->close) {
+            return [
+                'status' => 200,
+                'message' => '',
+                'data' => [],
+            ];
+        }
+
+        if (empty($result)) {
+            return [];
+        }
+
+        return json_decode($result, true);
+    }
 
     /**
      * @param string $url
      * @param array $data
-     * @param array $project_config
      * @return array
      * @throws Exception
      */
-    public static function postRequest($url, $data, $project_config)
+    public function apiPostRequest($url, $data)
     {
-        return self::request('POST', $url, $data, $project_config);
+        return $this->resultToArray($this->request('POST', '/index' . $url, $data));
+    }
+
+    /**
+     * @param string $url
+     * @return array
+     * @throws Exception
+     */
+    public function apiGetRequest($url)
+    {
+        return $this->resultToArray($this->request('GET', '/index' . $url, []));
     }
 
     /**
      * @param string $url
      * @param string $file_path
      * @param string $oss_path
-     * @param array $project_config
      * @return array
      * @throws Exception
      */
-    public static function postFileRequest($url, $file_path, $oss_path, $project_config)
+    public function apiPostFileRequest($url, $file_path, $oss_path)
     {
-
-        return self::request('FILE', $url, [
+        return $this->resultToArray($this->request('FILE', '/index' . $url, [
             'multipart' => [
                 [
                     'name'     => 'object_file',
@@ -45,18 +119,7 @@ class Client
                     'contents' => $oss_path
                 ],
             ]
-        ], $project_config);
-    }
-
-    /**
-     * @param string $url
-     * @param array $project_config
-     * @return array
-     * @throws Exception
-     */
-    public static function getRequest($url, $project_config)
-    {
-        return self::request('GET', $url, [], $project_config);
+        ]));
     }
 
     /**
@@ -97,7 +160,7 @@ class Client
         if (empty($url)) {
             throw new Exception('url 不能为空');
         }
-        
+
         $client = new \GuzzleHttp\Client($option);
 
         try {
@@ -113,28 +176,18 @@ class Client
      * @param string $method
      * @param string $url
      * @param array $data
-     * @param array $project_config
-     * @return array
+     * @return string
      * @throws Exception
      */
-    protected static function request($method, $url, $data, $project_config)
+    public function request($method, $url, $data)
     {
-        $client = new \GuzzleHttp\Client([
-            'base_uri' => self::BASE_URL,
-            'timeout'  => self::TIMEOUT,
-            'headers'  => [
-                'rshd-project-name' => $project_config['rshd_project_name'],
-                'rshd-project-key'  => $project_config['rshd_project_key'],
-            ],
-        ]);
-
         try {
             if ($method == 'GET') {
-                $request = $client->request($method, '/index' . $url);
+                $request = $this->client->request('GET', $url);
             } elseif ($method == 'FILE') {
-                $request = $client->request('POST', '/index' . $url, $data);
+                $request = $this->client->request('POST', $url, $data);
             } else {
-                $request = $client->request($method, '/index' . $url, ['form_params' => $data]);
+                $request = $this->client->request('POST', $url, ['form_params' => $data]);
             }
         } catch (GuzzleException $e) {
             throw new Exception($e->getMessage());
@@ -147,10 +200,9 @@ class Client
         $result = $request->getBody()->getContents();
 
         if (empty($result)) {
-            throw new Exception('服务器返回空数据');
+            return '';
         }
 
-        return json_decode($result, true);
+        return $result;
     }
-
 }

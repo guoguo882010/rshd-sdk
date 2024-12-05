@@ -15,7 +15,7 @@ class IP extends Project
      */
     public function add($ip)
     {
-        return Client::postRequest('/ip/add', ['ip' => $ip], $this->projectConfig);
+        return $this->client->apiPostRequest('/ip/add', ['ip' => $ip]);
     }
 
     /**
@@ -26,6 +26,6 @@ class IP extends Project
      */
     public function find($ip)
     {
-        return Client::postRequest('/ip/find', ['ip' => $ip], $this->projectConfig);
+        return $this->client->apiPostRequest('/ip/find', ['ip' => $ip]);
     }
 }

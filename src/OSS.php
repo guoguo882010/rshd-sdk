@@ -13,7 +13,7 @@ class OSS extends Project
      */
     public function getSignUrl($object_path)
     {
-        return Client::postRequest('/store/ossSignUrl', ['object_path' => $object_path], $this->projectConfig);
+        return $this->client->apiPostRequest('/store/ossSignUrl', ['object_path' => $object_path]);
     }
 
     /**
@@ -24,7 +24,7 @@ class OSS extends Project
      */
     public function uploadFile($file_path, $oss_path)
     {
-        return Client::postFileRequest('/store/ossUploadFile', $file_path, $oss_path, $this->projectConfig);
+        return $this->client->apiPostFileRequest('/store/ossUploadFile', $file_path, $oss_path);
     }
 
     /**
@@ -35,7 +35,7 @@ class OSS extends Project
      */
     public function uploadContent($content, $oss_path)
     {
-        return Client::postRequest('/store/ossUploadContent', ['object_path' => $oss_path, 'object_content' => $content], $this->projectConfig);
+        return $this->client->apiPostRequest('/store/ossUploadContent', ['object_path' => $oss_path, 'object_content' => $content]);
     }
 
     /**
@@ -52,7 +52,7 @@ class OSS extends Project
             $data['options'] = json_encode($options, JSON_UNESCAPED_UNICODE);
         }
 
-        return Client::postRequest('/store/ossObjectContent', $data, $this->projectConfig);
+        return $this->client->apiPostRequest('/store/ossObjectContent', $data);
     }
 
     /**
@@ -65,12 +65,12 @@ class OSS extends Project
      */
     public function getPicSignUrl($oss_path, $mode = 'fixed', $width = 200, $height = 200)
     {
-        return Client::postRequest('/store/ossPicSignUrl', [
+        return $this->client->apiPostRequest('/store/ossPicSignUrl', [
             'object_path' => $oss_path,
             'mode'        => $mode,
             'width'       => $width,
             'height'      => $height,
-        ], $this->projectConfig);
+        ]);
     }
 
     /**
@@ -81,8 +81,8 @@ class OSS extends Project
      */
     public function objectExist($oss_path)
     {
-        return Client::postRequest('/store/ossObjectExist', [
+        return $this->client->apiPostRequest('/store/ossObjectExist', [
             'object_path' => $oss_path,
-        ], $this->projectConfig);
+        ]);
     }
 }

@@ -14,10 +14,10 @@ class SLS extends Project
      */
     public function putData($data, $topic)
     {
-        return Client::postRequest('/log/slsPut', [
+        return $this->client->apiPostRequest('/log/slsPut', [
             'topic' => $topic,
             'data'  => json_encode($data, JSON_UNESCAPED_UNICODE),
-        ], $this->projectConfig);
+        ]);
     }
 
     /**
@@ -27,10 +27,10 @@ class SLS extends Project
      */
     public function putRequest($data)
     {
-        return Client::postRequest('/log/slsPut', [
+        return $this->client->apiPostRequest('/log/slsPut', [
             'topic' => 'Request',
             'data'  => json_encode($data, JSON_UNESCAPED_UNICODE),
-        ], $this->projectConfig);
+        ]);
     }
 
     /**
@@ -40,7 +40,7 @@ class SLS extends Project
      */
     public function putException(Exception $e)
     {
-        return Client::postRequest('/log/slsPut', [
+        return $this->client->apiPostRequest('/log/slsPut', [
             'topic' => 'Exception',
             'data'  => json_encode([
                 '_exception_name'    => get_class($e),
@@ -49,6 +49,6 @@ class SLS extends Project
                 '_exception_line'    => $e->getLine(),
                 '_exception_trace'   => $e->getTrace(),
             ], JSON_UNESCAPED_UNICODE),
-        ], $this->projectConfig);
+        ]);
     }
 }
