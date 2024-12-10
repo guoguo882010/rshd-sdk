@@ -7,7 +7,7 @@ use GuzzleHttp\Exception\GuzzleException;
 
 class Client
 {
-    protected $baseURL = 'http://tt.245.35jkw.com';
+    protected $baseURL = 'http://api.internal.rczy.work';
 
     protected $timeout = 25.0;
 
