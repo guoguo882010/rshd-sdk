@@ -16,13 +16,13 @@ class WeChat extends Project
      * @return array
      * @throws Exception
      */
-    public function fu2bbMiNiPay($appid, $out_trade_no, $description, $notify_url, $amount_total, $payer_openid)
+    public function miniPay($appid, $out_trade_no, $description, $notify_url, $amount_total, $payer_openid)
     {
         if (empty($appid) || empty($out_trade_no) || empty($description) || empty($amount_total) || empty($payer_openid)) {
             throw new Exception('参数不能为空');
         }
 
-        return $this->client->apiPostRequest('/we_chat/fu2bbMiNiPay', [
+        return $this->client->apiPostRequest('/we_chat/miniPay', [
             'appid'        => $appid,
             'out_trade_no' => $out_trade_no,
             'description'  => $description,
