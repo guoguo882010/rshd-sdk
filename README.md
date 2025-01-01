@@ -132,7 +132,7 @@ $tel->getAddress('电话号码');
 
 # 微信支付
 
-**调用支付**
+## 调用支付
 
 ```php
 
@@ -159,4 +159,80 @@ $pay->miniPay('小程序appid', '商户订单号',
         "paySign": "xxx"
     ]
 ]
+```
+
+## 通过微信订单号查询订单
+
+```php
+$pay = new \RSHDSDK\WeChat($config);
+$pay->miniGetOrderByWeChat('订单号');
+```
+
+**返回结果**
+
+```json
+{
+  "status": 200,
+  "message": "",
+  "data": {
+    "amount": {
+      "currency": "CNY",
+      "payer_currency": "CNY",
+      "payer_total": 1,
+      "total": 1
+    },
+    "appid": "wxd8ba3fc250296e6a",
+    "attach": "",
+    "bank_type": "BOC_DEBIT",
+    "mchid": "1681735611",
+    "out_trade_no": "20250101152912100-wn6ufK",
+    "payer": {
+      "openid": "o3Bwh7WFmbtQycUCWrr_P5zy0ElY"
+    },
+    "promotion_detail": [],
+    "success_time": "2025-01-01T17:03:11+08:00",
+    "trade_state": "SUCCESS",
+    "trade_state_desc": "支付成功",
+    "trade_type": "JSAPI",
+    "transaction_id": "4200002447202501018994887678"
+  }
+}
+```
+
+## 通过商户订单号查询订单
+
+```php
+$pay = new \RSHDSDK\WeChat($config);
+$pay->miniGetOrderByOut('订单号');
+```
+
+**返回结果**
+
+```json
+{
+    "status": 200,
+    "message": "",
+    "data": {
+        "amount": {
+            "currency": "CNY",
+            "payer_currency": "CNY",
+            "payer_total": 1,
+            "total": 1
+        },
+        "appid": "wxd8ba3fc250296e6a",
+        "attach": "",
+        "bank_type": "BOC_DEBIT",
+        "mchid": "1681735611",
+        "out_trade_no": "20250101152912100-wn6ufK",
+        "payer": {
+            "openid": "o3Bwh7WFmbtQycUCWrr_P5zy0ElY"
+        },
+        "promotion_detail": [],
+        "success_time": "2025-01-01T17:03:11+08:00",
+        "trade_state": "SUCCESS",
+        "trade_state_desc": "支付成功",
+        "trade_type": "JSAPI",
+        "transaction_id": "4200002447202501018994887678"
+    }
+}
 ```

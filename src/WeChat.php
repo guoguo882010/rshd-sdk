@@ -31,4 +31,38 @@ class WeChat extends Project
             'payer_openid' => $payer_openid,
         ]);
     }
+
+    /**
+     * 小程序，通过微信订单号查询订单
+     * @param string $number
+     * @return array
+     * @throws Exception
+     */
+    public function miniGetOrderByWeChat($number)
+    {
+        if (empty($number)) {
+            throw new Exception('参数不能为空');
+        }
+
+        return $this->client->apiPostRequest('/we_chat/miniGetOrderByWeChat', [
+            'number' => $number,
+        ]);
+    }
+
+    /**
+     * 小程序，通过商户订单号查询订单
+     * @param string $number
+     * @return array
+     * @throws Exception
+     */
+    public function miniGetOrderByOut($number)
+    {
+        if (empty($number)) {
+            throw new Exception('参数不能为空');
+        }
+
+        return $this->client->apiPostRequest('/we_chat/miniGetOrderByOut', [
+            'number' => $number,
+        ]);
+    }
 }
