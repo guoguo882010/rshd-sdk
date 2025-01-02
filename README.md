@@ -236,3 +236,20 @@ $pay->miniGetOrderByOut('订单号');
     }
 }
 ```
+
+## 一些工具
+
+```php
+
+// 生成一个随机 32 位 md5 字符串
+\RSHDSDK\Util\Str::generateUniqueMD5();
+
+// 生成一个 16 位订单号
+\RSHDSDK\Util\Str::generateOrderNO();
+
+// 获取文件后缀名
+\RSHDSDK\Util\Str::getFileExtension('文件名.jpg');
+
+//发送 http 请求
+\RSHDSDK\Util\HTTP::sendRequest('url','POST或GET','请求头数组', '请求body数组','超时时间秒','是否是ssl请求');
+```
