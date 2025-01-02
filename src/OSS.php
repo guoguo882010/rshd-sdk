@@ -17,14 +17,14 @@ class OSS extends Project
     }
 
     /**
-     * @param string $file_path
+     * @param string $file_path 文件路径 @ 开头
      * @param string $oss_path
      * @return array
      * @throws Exception
      */
     public function uploadFile($file_path, $oss_path)
     {
-        return $this->client->apiPostFileRequest('/store/ossUploadFile', $file_path, $oss_path);
+        return $this->client->apiPostRequest('/store/ossUploadFile', ['object_file' => '@' . $file_path ,'object_path' => $oss_path]);
     }
 
     /**

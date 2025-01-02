@@ -14,12 +14,17 @@ class Str
     }
 
     /**
-     * 生成一个订单号
+     * 生成一个16位长度的订单号
+     * 生成的例子：49B98D875F19B4D0
      * @return string
      */
     public static function generateOrderNO()
     {
-        return date('YmdHis').str_pad(mt_rand(1, 99999), 6, '0', STR_PAD_LEFT);
+        // 获取当前时间戳
+        $timestamp = microtime(true);  // 获取带有微秒的当前时间戳
+
+        // 使用时间戳和随机数生成订单号
+        return strtoupper(dechex($timestamp * 10000) . rand(1000, 9999));
     }
 
     /**

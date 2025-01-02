@@ -74,10 +74,15 @@ class Timestamp
      */
     public static function yesterday()
     {
-        $yesterday = date('d') - 1;
+        // 获取昨天的开始时间戳
+        $startOfYesterday = strtotime('yesterday midnight');
+
+        // 获取昨天的结束时间戳
+        $endOfYesterday = $startOfYesterday + 86399; // 23:59:59
+
         return [
-            mktime(0, 0, 0, date('m'), $yesterday, date('Y')),
-            mktime(23, 59, 59, date('m'), $yesterday, date('Y')),
+            $startOfYesterday,
+            $endOfYesterday
         ];
     }
 

@@ -7,7 +7,7 @@ use Exception;
 abstract class Project
 {
     /**
-     * @var \GuzzleHttp\Client
+     * @var ClientV2
      */
     protected $client;
 
@@ -21,7 +21,7 @@ abstract class Project
             throw new Exception('项目配置不能为空');
         }
 
-        $this->client = new Client($project_config);
+        $this->client = new ClientV2($project_config);
     }
 
     /**
