@@ -44,6 +44,14 @@ class ClientV2
      */
     public function apiPostRequest($url, $body)
     {
+        if ($this->close) {
+            return [
+                'status' => 200,
+                'message' => '',
+                'data' => [],
+            ];
+        }
+
         return $this->resultToArray(HTTP::sendPostRequest($this->baseURL . '/index' . $url, $this->header, $body, $this->timeout));
     }
 
@@ -54,14 +62,6 @@ class ClientV2
      */
     protected function resultToArray($result)
     {
-        if ($this->close) {
-            return [
-                'status' => 200,
-                'message' => '',
-                'data' => [],
-            ];
-        }
-
         if (empty($result)) {
             return [];
         }
