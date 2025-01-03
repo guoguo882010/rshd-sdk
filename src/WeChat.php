@@ -65,4 +65,26 @@ class WeChat extends Project
             'number' => $number,
         ]);
     }
+
+    /**
+     * 解密支付、退款后的回调数据
+     * @param string $associated_data
+     * @param string $nonce
+     * @param string $ciphertext
+     * @return array
+     * @throws Exception
+     * @since 2.2
+     */
+    public function decodeCallBack($associated_data, $nonce, $ciphertext)
+    {
+        if (empty($nonce) || empty($associated_data) || empty($ciphertext)) {
+            throw new Exception('缺少必要的参数');
+        }
+
+        return $this->client->apiPostRequest('/we_chat/decodeCallBack', [
+            'nonce'           => $nonce,
+            'associated_data' => $associated_data,
+            'ciphertext'      => $ciphertext,
+        ]);
+    }
 }

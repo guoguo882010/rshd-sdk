@@ -237,7 +237,14 @@ $pay->miniGetOrderByOut('订单号');
 }
 ```
 
-## 一些工具
+## 解密微信支付、退款回调
+
+```php
+$pay = new \RSHDSDK\WeChat($config);
+$pay->decodeCallBack($associated_data, $nonce, $ciphertext);
+```
+
+# 一些工具
 
 ```php
 
