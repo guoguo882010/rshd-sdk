@@ -244,6 +244,18 @@ $pay = new \RSHDSDK\WeChat($config);
 $pay->decodeCallBack($associated_data, $nonce, $ciphertext);
 ```
 
+## 退款
+
+```php
+$pay = new \RSHDSDK\WeChat($config);
+
+// 通过微信订单号退款
+$pay->miniOrderRefundsByWeChat('微信订单号','商户退款单号','退款金额','订单原始金额','回调url');
+
+// 通过商户订单号退款
+$pay->miniOrderRefundsByOut('商户订单号','商户退款单号','退款金额','订单原始金额','回调url');
+```
+
 # 一些工具
 
 ```php

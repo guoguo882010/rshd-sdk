@@ -87,4 +87,66 @@ class WeChat extends Project
             'ciphertext'      => $ciphertext,
         ]);
     }
+
+    /**
+     * 退款，通过微信订单号
+     * @param string $number 微信订单号（必填）
+     * @param string $refund_number 商户退款单号，商家自己生成（必填）
+     * @param integer $amount_refund 退款金额，整数，单位为分（必填）
+     * @param integer $amount_total 订单原始金额，整数，单位为分（必填）
+     * @param string $notify_url 回调通知
+     * @return array
+     * @throws Exception
+     * @since 2.3
+     */
+    public function miniOrderRefundsByWeChat($number, $refund_number, $amount_refund, $amount_total, $notify_url)
+    {
+        if (empty($number) || empty($refund_number) || empty($amount_refund) || empty($amount_total)) {
+            throw new Exception('缺少必要的参数');
+        }
+
+        $body = [
+            'number'        => $number,
+            'refund_number' => $refund_number,
+            'amount_refund' => $amount_refund,
+            'amount_total'  => $amount_total,
+        ];
+
+        if (!empty($notify_url)) {
+            $body['notify_url'] = $notify_url;
+        }
+
+        return $this->client->apiPostRequest('/we_chat/miniOrderRefundsByWeChat', $body);
+    }
+
+    /**
+     * 退款，通过商户订单号
+     * @param string $number 商户订单号（必填）
+     * @param string $refund_number 商户退款单号，商家自己生成（必填）
+     * @param integer $amount_refund 退款金额，整数，单位为分（必填）
+     * @param integer $amount_total 订单原始金额，整数，单位为分（必填）
+     * @param string $notify_url 回调通知
+     * @return array
+     * @throws Exception
+     * @since 2.3
+     */
+    public function miniOrderRefundsByOut($number, $refund_number, $amount_refund, $amount_total, $notify_url)
+    {
+        if (empty($number) || empty($refund_number) || empty($amount_refund) || empty($amount_total)) {
+            throw new Exception('缺少必要的参数');
+        }
+
+        $body = [
+            'number'        => $number,
+            'refund_number' => $refund_number,
+            'amount_refund' => $amount_refund,
+            'amount_total'  => $amount_total,
+        ];
+
+        if (!empty($notify_url)) {
+            $body['notify_url'] = $notify_url;
+        }
+
+        return $this->client->apiPostRequest('/we_chat/miniOrderRefundsByOut', $body);
+    }
 }
