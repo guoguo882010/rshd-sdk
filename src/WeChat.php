@@ -77,15 +77,22 @@ class WeChat extends Project
      */
     public function decodeCallBack($associated_data, $nonce, $ciphertext)
     {
-        if (empty($nonce) || empty($associated_data) || empty($ciphertext)) {
+        if (empty($nonce) || empty($ciphertext)) {
             throw new Exception('缺少必要的参数');
         }
 
-        return $this->client->apiPostRequest('/we_chat/decodeCallBack', [
+        $body = [
             'nonce'           => $nonce,
-            'associated_data' => $associated_data,
             'ciphertext'      => $ciphertext,
-        ]);
+        ];
+
+        if (empty($associated_data)) {
+            $body['associated_data'] = '';
+        } else {
+            $body['associated_data'] = $associated_data;
+        }
+
+        return $this->client->apiPostRequest('/we_chat/decodeCallBack', $body);
     }
 
     /**
