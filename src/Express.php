@@ -14,6 +14,7 @@ class Express extends Project
      * @param string $number
      * @return array
      * @throws Exception
+     * @since 2.5
      */
     public function juMei($number)
     {

@@ -256,6 +256,14 @@ $pay->miniOrderRefundsByWeChat('微信订单号','商户退款单号','退款金
 $pay->miniOrderRefundsByOut('商户订单号','商户退款单号','退款金额','订单原始金额','回调url');
 ```
 
+# 快递查询
+
+```php
+$e = new \RSHDSDK\Express($config);
+$e->juMei('快递单号');
+
+```
+
 # 一些工具
 
 ```php
