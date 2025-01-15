@@ -264,6 +264,21 @@ $e->juMei('快递单号');
 
 ```
 
+# 百度编辑器
+
+更改百度编辑器的配置文件 ueditor.config.js 中的 serverUrl 为你项目的控制器方法
+
+```php
+//百度编辑器，后端图片处理
+$baidu = new \RSHDSDK\UEditor\UEditor($config);
+
+//前台接收的 url 参数数组传给 action 方法
+$baidu->action($this->request->param());
+
+$baidu->getHtml('html字符串');
+$baidu->setHtml('html字符串');
+```
+
 # 一些工具
 
 ```php
