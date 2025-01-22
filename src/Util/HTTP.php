@@ -152,4 +152,37 @@ class HTTP
         ];
     }
 
+    /**
+     * 下载 url 文件到临时目录
+     * linux 临时目录为 temp
+     * @param string $url 要下载文件的url完整路径
+     * @param string $prefix 临时文件名前缀
+     * @return string 返回完整文件路径
+     * @throws Exception
+     * @since 2.7
+     */
+    public static function downloadURLToTempDir($url, $prefix = 'url_')
+    {
+        // 下载文件到临时变量
+        $tempFileContent = file_get_contents($url);
+
+        if (!$tempFileContent) {
+            throw new Exception('从url读取文件失败');
+        }
+
+        // 保存为临时文件
+        $tempFilePath = tempnam(sys_get_temp_dir(), $prefix);
+
+        if (!$tempFilePath) {
+            throw new Exception('生成临时文件路径错误');
+        }
+
+        $result = file_put_contents($tempFilePath, $tempFileContent);
+
+        if (!$result) {
+            throw new Exception('文件保存失败');
+        }
+
+        return $tempFilePath;
+    }
 }

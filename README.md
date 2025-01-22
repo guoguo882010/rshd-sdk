@@ -295,3 +295,9 @@ $baidu->setHtml('html字符串');
 //发送 http 请求
 \RSHDSDK\Util\HTTP::sendRequest('url','POST或GET','请求头数组', '请求body数组','超时时间秒','是否是ssl请求');
 ```
+
+# 更新日志
+
+## 20250122
+
+增加 `HTTP::downloadURLToTempDir` 方法
