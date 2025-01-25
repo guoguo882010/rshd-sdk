@@ -49,15 +49,13 @@ class CrawlerImg
     {
         $list = array();
         foreach ($this->source as $imgUrl) {
-            $item = new Uploader($imgUrl, $this->config, null, "remote");
-            $info = $item->getFileInfo();
             $list[] = array(
-                "state"    => $info["state"],
-                "url"      => $info["url"],
-                "size"     => $info["size"],
-                "title"    => htmlspecialchars($info["title"]),
-                "original" => htmlspecialchars($info["original"]),
-                "source"   => htmlspecialchars($imgUrl)
+                "state"    => 'SUCCESS',
+                "url"      => '',
+                "size"     => 0,
+                "title"    => '',
+                "original" => '',
+                "source"   => ''
             );
         }
 
