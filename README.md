@@ -256,6 +256,42 @@ $pay->miniOrderRefundsByWeChat('微信订单号','商户退款单号','退款金
 $pay->miniOrderRefundsByOut('商户订单号','商户退款单号','退款金额','订单原始金额','回调url');
 ```
 
+# 微信小程序
+
+```php
+$wehcat = new \RSHDSDK\WeChat($config);
+
+//生成小程序二维码
+$wehcat->miniUnlimitedQRCode('scene');
+//生成小程序url，邮件、网页、微信内部都可以通过这个url打开小程序
+$wehcat->miniGenerateUrlLink();
+```
+
+# 微信公众号
+
+```php
+$wehcat = new \RSHDSDK\WeChat($config);
+
+//创建公众号自定义菜单
+$wehcat->officialCreateMenu([]);
+//删除清空自定义菜单
+$wehcat->officialDeleteMenu();
+//发送模版消息
+$wehcat->officialTemplateMessageSend();
+//发送客户消息
+$wehcat->officialCustomSend($message);
+//客户消息-发送文本消息
+$wehcat->officialCustomSendText($to_user_openid, $content);
+//客户消息-发送图片消息
+$wehcat->officialCustomSendImage($to_user_openid, $media_id);
+//客户消息-发送语音消息
+$wehcat->officialCustomSendVoice($to_user_openid, $media_id);
+//客户消息-发送图文消息（点击跳转到外链）
+$wehcat->officialCustomSendNews($to_user_openid, $title, $description, $url, $picurl);
+//客户消息-发送图文消息
+$wehcat->officialCustomSendMPNews($to_user_openid, $media_id);
+```
+
 # 快递查询
 
 ```php
@@ -294,9 +330,14 @@ $baidu->setHtml('html字符串');
 
 //发送 http 请求
 \RSHDSDK\Util\HTTP::sendRequest('url','POST或GET','请求头数组', '请求body数组','超时时间秒','是否是ssl请求');
+
+\RSHDSDK\Util\HTTP::downloadURLToTempDir('url','文件名前缀');
 ```
 
 # 更新日志
+
+## 20250125
+增加一些小程序，公众号方法
 
 ## 20250122
 

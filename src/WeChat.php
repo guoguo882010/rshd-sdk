@@ -82,8 +82,8 @@ class WeChat extends Project
         }
 
         $body = [
-            'nonce'           => $nonce,
-            'ciphertext'      => $ciphertext,
+            'nonce'      => $nonce,
+            'ciphertext' => $ciphertext,
         ];
 
         if (empty($associated_data)) {
@@ -155,5 +155,338 @@ class WeChat extends Project
         }
 
         return $this->client->apiPostRequest('/we_chat/miniOrderRefundsByOut', $body);
+    }
+
+    /**
+     * 生成小程序URL Link
+     * @param string $path
+     * @param string $query
+     * @param numeric $expire_type
+     * @param numeric $expire_time
+     * @param numeric $expire_interval
+     * @return array
+     * @throws Exception
+     * @since 2.10
+     */
+    public function miniGenerateUrlLink($path = null, $query = null, $expire_type = null, $expire_time = null, $expire_interval = null)
+    {
+        $message = [];
+
+        if (!empty($path)) {
+            $message['path'] = $path;
+        }
+
+        if (!empty($query)) {
+            $message['query'] = $query;
+        }
+
+        if (!empty($expire_type)) {
+            $message['expire_type'] = $expire_type;
+        }
+
+        if (!empty($expire_time)) {
+            $message['expire_time'] = $expire_time;
+        }
+
+        if (!empty($expire_interval)) {
+            $message['expire_interval'] = $expire_interval;
+        }
+
+        return $this->client->apiPostRequest('/we_chat/miniGenerateUrlLink', ['message' => json_encode($message)]);
+    }
+
+    /**
+     * 获取不限制的小程序二维码
+     * @param string $scene 场景名称
+     * @param string $page
+     * @param integer $width
+     * @param bool $check_path
+     * @param string $env_version
+     * @param bool $auto_color
+     * @param array $line_color
+     * @param bool $is_hyaline
+     * @return array
+     * @throws Exception
+     * @since 2.10
+     */
+    public function miniUnlimitedQRCode($scene, $page = null, $width = null, $check_path = null, $env_version = null,
+                                        $auto_color = null, $line_color = [], $is_hyaline = null)
+    {
+        if (empty($scene)) {
+            throw new Exception('scene 参数不能为空');
+        }
+
+        $message = [];
+
+        $message['scene'] = $scene;
+
+        if (!empty($page)) {
+            $message['page'] = $page;
+        }
+
+        if (!empty($check_path)) {
+            $message['check_path'] = $check_path;
+        }
+
+        if (!empty($env_version)) {
+            $message['env_version'] = $env_version;
+        }
+
+        if (!empty($width)) {
+            $message['width'] = $width;
+        }
+
+        if (!empty($auto_color)) {
+            $message['auto_color'] = $auto_color;
+        }
+
+        if (!empty($line_color)) {
+            $message['line_color'] = $line_color;
+        }
+
+        if (!empty($is_hyaline)) {
+            $message['is_hyaline'] = $is_hyaline;
+        }
+
+        return $this->client->apiPostRequest('/we_chat/miniUnlimitedQRCode', ['message' => json_encode($message)]);
+    }
+
+    /**
+     * 公众号-发送模版消息
+     * @param string $to_user_openid
+     * @param string $template_id
+     * @param string $url
+     * @param array $miniprogram
+     * @param array $data
+     * @param string $client_msg_id
+     * @return array
+     * @throws Exception
+     * @since 2.10
+     */
+    public function officialTemplateMessageSend($to_user_openid, $template_id, $url = null, $miniprogram = [],
+                                                $data = [], $client_msg_id = null)
+    {
+        if (empty($to_user_openid)) {
+            throw new Exception('to_user_openid 不能为空');
+        }
+
+        if (empty($template_id)) {
+            throw new Exception('template_id 不能为空');
+        }
+
+        $message = [];
+
+        if (!empty($url)) {
+            $message['url'] = $url;
+        }
+
+        if (!empty($miniprogram)) {
+            $message['miniprogram'] = $miniprogram;
+        }
+
+        if (!empty($data)) {
+            $message['data'] = $data;
+        }
+
+        if (!empty($client_msg_id)) {
+            $message['client_msg_id'] = $client_msg_id;
+        }
+
+        return $this->client->apiPostRequest('/we_chat/officialTemplateMessageSend', ['message' => json_encode($message)]);
+    }
+
+    /**
+     * 公众号-创建菜单
+     * @param array $button 菜单数组
+     * @return array
+     * @throws Exception
+     * @since 2.10
+     */
+    public function officialCreateMenu($button)
+    {
+        if (empty($button)) {
+            throw new Exception('button 不能为空');
+        }
+
+        return $this->client->apiPostRequest('/we_chat/officialCreateMenu', ['button' => json_encode($button)]);
+    }
+
+    /**
+     * 公众号-删除菜单
+     * @return array
+     * @throws Exception
+     * @since 2.10
+     */
+    public function officialDeleteMenu()
+    {
+        return $this->client->apiPostRequest('/we_chat/officialDeleteMenu', []);
+    }
+
+    /**
+     * @param array $message
+     * @return array
+     * @throws Exception
+     * @since 2.10
+     */
+    public function officialCustomSend($message)
+    {
+        if (empty($message)) {
+            throw new Exception('message 不能为空');
+        }
+
+        return $this->client->apiPostRequest('/we_chat/officialCustomSend', ['message' => json_encode($message)]);
+    }
+
+    /**
+     * 公众号-发送文本消息
+     * @param string $to_user_openid
+     * @param string $content
+     * @return array
+     * @throws Exception
+     * @since 2.10
+     */
+    public function officialCustomSendText($to_user_openid, $content)
+    {
+        if (empty($to_user_openid)) {
+            throw new Exception('to_user_openid 不能为空');
+        }
+
+        if (empty($content)) {
+            throw new Exception('content 不能为空');
+        }
+
+        return $this->officialCustomSend([
+            'touser'  => $to_user_openid,
+            'msgtype' => 'text',
+            'text'    => [
+                'content' => $content
+            ],
+        ]);
+    }
+
+    /**
+     * 公众号-发送图片消息
+     * @param string $to_user_openid
+     * @param string $media_id
+     * @return array
+     * @throws Exception
+     * @since 2.10
+     */
+    public function officialCustomSendImage($to_user_openid, $media_id)
+    {
+        if (empty($to_user_openid)) {
+            throw new Exception('to_user_openid 不能为空');
+        }
+
+        if (empty($media_id)) {
+            throw new Exception('media_id 不能为空');
+        }
+
+        return $this->officialCustomSend([
+            'touser'  => $to_user_openid,
+            'msgtype' => 'image',
+            'image'   => [
+                'media_id' => $media_id
+            ],
+        ]);
+    }
+
+    /**
+     * 公众号-发送语音消息
+     * @param string $to_user_openid
+     * @param string $media_id
+     * @return array
+     * @throws Exception
+     * @since 2.10
+     */
+    public function officialCustomSendVoice($to_user_openid, $media_id)
+    {
+        if (empty($to_user_openid)) {
+            throw new Exception('to_user_openid 不能为空');
+        }
+
+        if (empty($media_id)) {
+            throw new Exception('media_id 不能为空');
+        }
+
+        return $this->officialCustomSend([
+            'touser'  => $to_user_openid,
+            'msgtype' => 'voice',
+            'voice'   => [
+                'media_id' => $media_id
+            ],
+        ]);
+    }
+
+    /**
+     * 公众号-发送图文消息（点击跳转到外链） 图文消息条数限制在1条以内，注意，如果图文数超过1，则将会返回错误码45008。
+     * @param string $to_user_openid
+     * @param string $title
+     * @param string $description
+     * @param string $url
+     * @param string $picurl
+     * @return array
+     * @throws Exception
+     * @since 2.10
+     */
+    public function officialCustomSendNews($to_user_openid, $title, $description, $url, $picurl)
+    {
+        if (empty($to_user_openid)) {
+            throw new Exception('to_user_openid 不能为空');
+        }
+
+        if (empty($title)) {
+            throw new Exception('title 不能为空');
+        }
+
+        if (empty($description)) {
+            throw new Exception('description 不能为空');
+        }
+
+        if (empty($url)) {
+            throw new Exception('url 不能为空');
+        }
+
+        if (empty($picurl)) {
+            throw new Exception('picurl 不能为空');
+        }
+
+        return $this->officialCustomSend([
+            'touser'  => $to_user_openid,
+            'msgtype' => 'news',
+            'news'    => [
+                'title'       => $title,
+                'description' => $description,
+                'url'         => $url,
+                'picurl'      => $picurl,
+            ],
+        ]);
+    }
+
+    /**
+     * 公众号-发送图文消息（点击跳转到图文消息页面） 图文消息条数限制在1条以内，注意，如果图文数超过1，则将会返回错误码45008。
+     * @param string $to_user_openid
+     * @param string $media_id
+     * @return array
+     * @throws Exception
+     * @since 2.10
+     */
+    public function officialCustomSendMPNews($to_user_openid, $media_id)
+    {
+        if (empty($to_user_openid)) {
+            throw new Exception('to_user_openid 不能为空');
+        }
+
+        if (empty($media_id)) {
+            throw new Exception('media_id 不能为空');
+        }
+
+        return $this->officialCustomSend([
+            'touser'  => $to_user_openid,
+            'msgtype' => 'mpnews',
+            'mpnews'  => [
+                'media_id' => $media_id,
+            ],
+        ]);
     }
 }
