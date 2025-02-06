@@ -114,15 +114,6 @@ class Uploader
             return;
         }
 
-        //创建目录失败
-        if (!file_exists($dirname) && !mkdir($dirname, 0777, true)) {
-            $this->stateInfo = $this->getStateInfo("ERROR_CREATE_DIR");
-            return;
-        } else if (!is_writeable($dirname)) {
-            $this->stateInfo = $this->getStateInfo("ERROR_DIR_NOT_WRITEABLE");
-            return;
-        }
-
         $oss_path = str_replace("/uploads/", "", $this->getFullName());
 
         try {
