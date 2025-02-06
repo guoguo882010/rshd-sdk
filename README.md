@@ -325,6 +325,9 @@ $baidu->setHtml('html字符串');
 // 生成一个 16 位订单号
 \RSHDSDK\Util\Str::generateOrderNO();
 
+// 生成一个 20 位年月日的订单号
+\RSHDSDK\Util\Str::generateDateOrderNumber();
+
 // 获取文件后缀名
 \RSHDSDK\Util\Str::getFileExtension('文件名.jpg');
 
