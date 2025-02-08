@@ -473,4 +473,34 @@ class Timestamp
         }
         return $months;
     }
+
+    /**
+     * 获取最近7天开始结束时间戳，不包括今天
+     * 比如今天是1月8号，返回1月1日-1月7日的时间戳
+     * @return array
+     */
+    public static function last7DaysRange() {
+        // 获取 7 天前的 00:00:00（从昨天往前推 6 天）
+        $start = strtotime("-7 days", strtotime("today"));
+
+        // 获取昨天的 23:59:59
+        $end = strtotime("yesterday 23:59:59");
+
+        return [$start, $end];
+    }
+
+    /**
+     * 获取最近7天开始结束时间戳，包括今天
+     * 比如今天是1月8号，返回1月2日-1月8日的时间戳
+     * @return array
+     */
+    public static function recent7DaysRange() {
+        // 获取 6 天前的 00:00:00（包含今天，总共 7 天）
+        $start = strtotime("-6 days", strtotime("today"));
+
+        // 获取今天的 23:59:59
+        $end = strtotime("today 23:59:59");
+
+        return [$start, $end];
+    }
 }
