@@ -292,6 +292,35 @@ $wehcat->officialCustomSendNews($to_user_openid, $title, $description, $url, $pi
 $wehcat->officialCustomSendMPNews($to_user_openid, $media_id);
 ```
 
+## 接收和返回XML消息类
+
+OfficialReceiveXMLMessage 类接收微信的的消息
+
+OfficialSendXMLMessage 类获取需要返回给微信的xml字符串格式
+
+这两个类不需要传送config配置，只需要传需要解析的xml字符串
+
+```php
+//获取php请求的原始数据
+$xml = file_get_contents("php://input");
+
+//OfficialReceiveXMLMessage，其他方法查看类
+$msg = new \RSHDSDK\WeChat\OfficialReceiveXMLMessage($xml);
+
+$msg->isSubscribeEvent();//是否是订阅事件
+$msg->isTextMessage();//是否是文本消息
+$msg->getField('Content');//给定xml节点名字，获取这个节点的内容
+$msg->getToUserName();//开发者微信号
+$msg->getFromUserName();//客户openid
+
+//OfficialSendXMLMessage，其他方法查看类
+
+//返回文本消息xml格式字符串
+\RSHDSDK\WeChat\OfficialSendXMLMessage::getTextXML('客户openid','开发者微信号','文本内容');
+//返回图片消息xml格式字符串
+\RSHDSDK\WeChat\OfficialSendXMLMessage::getImageXML('客户openid','开发者微信号','媒体id');
+```
+
 # 快递查询
 
 ```php

@@ -478,6 +478,7 @@ class Timestamp
      * 获取最近7天开始结束时间戳，不包括今天
      * 比如今天是1月8号，返回1月1日-1月7日的时间戳
      * @return array
+     * @since 2.13
      */
     public static function last7DaysRange() {
         // 获取 7 天前的 00:00:00（从昨天往前推 6 天）
@@ -493,6 +494,7 @@ class Timestamp
      * 获取最近7天开始结束时间戳，包括今天
      * 比如今天是1月8号，返回1月2日-1月8日的时间戳
      * @return array
+     * @since 2.13
      */
     public static function recent7DaysRange() {
         // 获取 6 天前的 00:00:00（包含今天，总共 7 天）
