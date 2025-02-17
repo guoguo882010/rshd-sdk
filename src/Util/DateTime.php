@@ -149,4 +149,21 @@ class DateTime
         return [date('Y-m-d 00:00:00',strtotime($date)),
             date('Y-m-d 23:59:59',strtotime($date))];
     }
+
+    /**
+     * 获取某一个的所有日期
+     * @param string $year 需要计算的年费，例如：2024
+     * @return array 返回数组为所有这年的日期 [2024-01-01,2024-01-02,2024-01-03...2024-12-31]
+     * @since 2.15
+     */
+    public static function getYearDates($year) {
+        $daysInYear = date('L', strtotime("$year-01-01")) ? 366 : 365; // 判断是否为闰年
+        $dates = [];
+
+        for ($i = 0; $i < $daysInYear; $i++) {
+            $dates[] = date('Y-m-d', strtotime("$year-01-01 +$i days"));
+        }
+
+        return $dates;
+    }
 }
