@@ -28,13 +28,17 @@ class SMS extends Project
      * @return array
      * @throws Exception
      */
-    public function sendAliyun($telephone, $template_id, $template_param)
+    public function sendAliyun($telephone, $template_id, $template_param = [])
     {
-        return $this->client->apiPostRequest('/sms/aliyun', [
-            'telephone'      => $telephone,
-            'template_id'    => $template_id,
-            'template_param' => json_encode($template_param, JSON_UNESCAPED_UNICODE),
-        ]);
+        $data = [
+            'telephone'   => $telephone,
+            'template_id' => $template_id,
+        ];
+
+        if (!empty($template_param)) {
+            $data['template_param'] = json_encode($template_param, JSON_UNESCAPED_UNICODE);
+        }
+        return $this->client->apiPostRequest('/sms/aliyun', $data);
     }
 
     /**
