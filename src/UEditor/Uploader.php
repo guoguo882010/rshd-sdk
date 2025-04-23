@@ -9,6 +9,7 @@ use Exception;
  */
 class Uploader
 {
+    private $type;
     private $fileField; //文件域名
     private $file; //文件上传对象
     private $base64; //文件上传对象
