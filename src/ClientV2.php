@@ -7,7 +7,7 @@ use RSHDSDK\Util\HTTP;
 
 class ClientV2
 {
-    protected $baseURL = 'http://api.internal.rczy.work';
+    protected $baseURL = 'http://api.internal.rshd.work';
 
     protected $timeout = 15;
 
